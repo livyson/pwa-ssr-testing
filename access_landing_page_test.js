@@ -1,16 +1,31 @@
 
 var webdriver = require('selenium-webdriver'),
-    firefox = require('selenium-webdriver/firefox'),
+    chrome = require('selenium-webdriver/chrome'),
     By = webdriver.By,
     until = webdriver.until;
 
+const prefs = {
+  "profile": {
+    "content_settings": {
+      "javascript": {
+        "https://web.whatsapp.com:443,*": {
+          "setting": 1
+        },
+        "*quintoandar.com.br,*": {
+          "setting": 2
+        }
+      }
+    }
+  }
+};
 
-const options = new firefox.Options().setPreference('javascript.enabled', false);
+const options = new chrome.Options();
+options.setUserPreferences(prefs);
 
 const driver = new webdriver
     .Builder()
-    .forBrowser('firefox')
-    .setFirefoxOptions(options)
+    .forBrowser('chrome')
+    .setChromeOptions(options)
     .usingServer()
     .build();
 
