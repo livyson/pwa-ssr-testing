@@ -4,23 +4,31 @@ var webdriver = require('selenium-webdriver'),
     By = webdriver.By,
     until = webdriver.until;
 
-const prefs = {
-  "profile": {
-    "content_settings": {
-      "javascript": {
-        "https://web.whatsapp.com:443,*": {
-          "setting": 1
+var options = new chrome.Options();
+options.setUserPreferences(
+  {
+    "profile": {
+      "content_settings": {
+        "exceptions": {
+          "javascript": {
+            "https://quintoandar.com.br,*": {
+              "last_modified": "13182621523198729",
+              "setting": 2
+            },
+            "www.quintoandar.com.br,*": {
+              "last_modified": "13182621536256786",
+              "setting": 2
+            },
+            "*.quintoandar.com.br,*": {
+              "last_modified": "13182621536256786",
+              "setting": 2
+            }
+          },
         },
-        "*quintoandar.com.br,*": {
-          "setting": 2
-        }
-      }
-    }
+      },
+    },
   }
-};
-
-const options = new chrome.Options();
-options.setUserPreferences(prefs);
+);
 
 const driver = new webdriver
     .Builder()
