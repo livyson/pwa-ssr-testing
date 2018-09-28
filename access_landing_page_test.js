@@ -1,27 +1,20 @@
 
 var webdriver = require('selenium-webdriver'),
+    firefox = require('selenium-webdriver/firefox'),
     By = webdriver.By,
     until = webdriver.until;
 
-var capabilities = {
-  'browserName' : 'chrome',
-  'chromeOptions': {
-        'isJavascriptEnabled':'false'
-    }
-  'javascriptEnabled' : 'false'
-}
 
+const options = new firefox.Options().setPreference('javascript.enabled', false);
 
-// var driver_fx = new webdriver.Builder()
-//     .withCapabilities({'browserName' : 'firefox'})
-//     .build();
-
-var driver_chr = new webdriver.Builder()
-    .withCapabilities(capabilities)
+const driver = new webdriver
+    .Builder()
+    .forBrowser('firefox')
+    .setFirefoxOptions(options)
+    .usingServer()
     .build();
 
-// searchTest(driver_fx);
-searchTest(driver_chr);
+searchTest(driver);
 
 function searchTest(driver) {
   driver.get('https://www.quintoandar.com.br/');
